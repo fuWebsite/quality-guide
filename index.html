@@ -254,6 +254,19 @@
                 box-sizing: border-box;
             }
         }
+
+        /* إخفاء مستطيلات الهايلايت تماماً على الهواتف والتابلت لأنها لا تتناسب مع أبعاد الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .highlight-box-1, 
+    .highlight-box-2, 
+    .highlight-box-3, 
+    .highlight-box-5, 
+    .highlight-box-6, 
+    .highlight-box-7-add, 
+    .highlight-box-7-edit {
+        display: none !important;
+    }
+}
     </style>
 </head>
 <body>
