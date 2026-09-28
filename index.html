@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل أعمال الجودة - نظم المعلومات</title>
+    
+    <!-- استدعاء ملف الـ CSS الخاص بمكتبة Driver.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+    
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* قائمة المحتويات الجانبية (Sidebar) */
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 13px;
+            display: block;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .sidebar a:hover {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .container {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-tour {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-tour:hover {
+            background-color: #1f618d;
+        }
+
+        .btn-dashboard {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-dashboard:hover {
+            background-color: #219653;
+        }
+
+        .screen-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .screen-section h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        .image-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .screen-img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #fff;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .screen-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* مستطيل الهايلايت الخاص بالشاشة الأولى */
+        .highlight-box-1 {
+            position: absolute;
+            top: 58.5%;
+            right: 76%;
+            width: 185px;
+            height: 147px;
+            border: 2px solid #e74c3c;
+            background-color: rgba(231, 76, 60, 0.25);
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* مستطيل الهايلايت الخاص بالشاشة الثانية */
+        .highlight-box-2 {
+            position: absolute;
+            top: 62%;
+            right: 43%;
+            width: 13%;
+            height: 7%;
+            border: 2px solid #e74c3c;
+            background-color: rgba(231, 76, 60, 0.25);
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        /* مستطيل الهايلايت الخاص بالشاشة الثالثة (عرض التفاصيل) */
+        .highlight-box-3 {
+            position: absolute;
+           top: 59.5%;
+    left: 19.2%;
+    width: 97px;
+    height: 29px;
+            border: 2px solid #e74c3c;
+            background-color: rgba(231, 76, 60, 0.25);
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        .driver-popover-footer {
+            flex-direction: row-reverse !important;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-layout">
+        <!-- فهرس الخطوات الجانبي -->
+        <aside class="sidebar">
+            <h4>فهرس الشرح</h4>
+            <ul>
+                <li><a href="#screen-1">1. الدخول للقسم</a></li>
+                <li><a href="#screen-2">2. أعمال الجودة بالقسم</a></li>
+                <li><a href="#screen-3">3. العرض الزمني (Timeline)</a></li>
+                <li><a href="#screen-4">4. تفاصيل النشاط الكاملة</a></li>
+            </ul>
+        </aside>
+
+        <div class="container">
+            <header>
+                <h2>دليل خطوات إدخال وعرض أعمال الجودة</h2>
+                <div class="header-buttons">
+                    <a href="dashboard.html" class="btn-dashboard">لوحة التحكم للإدخال ⚙️</a>
+                    <button id="start-tour-btn" class="btn-tour">ابدأ جولة الشرح 🚀</button>
+                </div>
+            </header>
+
+            <!-- الشاشة الأولى -->
+            <div class="screen-section" id="screen-1">
+                <h3>الشاشة الأولى: الدخول للقسم</h3>
+                <p>لإضافة بيانات الجودة الخاصة بالقسم، يتم الدخول على صفحة القسم بالكلية، ثم الضغط على أيقونة <strong>"أعمال الجودة بالقسم"</strong> للانتقال إلى الشاشة الثانية[cite: 1].</p>
+                <div class="image-container">
+                    <img src="1.png" alt="الشاشة الأولى" class="screen-img">
+                    <div class="highlight-box-1"></div>
+                </div>
+            </div>
+
+            <!-- الشاشة الثانية -->
+            <div class="screen-section" id="screen-2">
+                <h3>الشاشة الثانية: أعمال الجودة الخاصة بالقسم</h3>
+                <p>بعد الانتقال، نجد 3 تقسيمات رئيسية لأعمال الجودة وهي: الأنشطة التي تم الانتهاء منها، الأنشطة الجاري العمل على تنفيذها، والأنشطة المخطط لتنفيذها في المستقبل[cite: 2].</p>
+                <div class="image-container">
+                    <img src="2.png" alt="الشاشة الثانية" class="screen-img">
+                    <div class="highlight-box-2"></div>
+                </div>
+            </div>
+
+            <!-- الشاشة الثالثة -->
+            <div class="screen-section" id="screen-3">
+                <h3>الشاشة الثالثة: التقسيم الزمني (التايم لاين)</h3>
+                <p>هنا يتم عرض الأنشطة مقسمة زمنياً من الأحدث إلى الأقدم حسب تاريخ انتهاء الفترة الزمنية للنشاط (مثل جاري التنفيذ في فترة محددة)، مع توفر زر <strong>"عرض التفاصيل"</strong> لكل نشاط[cite: 3].</p>
+                <div class="image-container">
+                    <img src="3.png" alt="الشاشة الثالثة" class="screen-img">
+                    <div class="highlight-box-3"></div>
+                </div>
+            </div>
+
+            <!-- الشاشة الرابعة -->
+            <div class="screen-section" id="screen-4">
+                <h3>الشاشة الرابعة: عرض البيانات الكاملة للنشاط</h3>
+                <p>عند الضغط على عرض التفاصيل، تنتقل للشاشة الرابعة لعرض البيانات بالكامل التي تم إدخالها (الفترة الزمنية، العام الأكاديمي، جهة التنفيذ، الفئة المستهدفة، ونبذة عن النشاط وأهدافه)[cite: 4].</p>
+                <div class="image-container">
+                    <img src="4.png" alt="الشاشة الرابعة" class="screen-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- استدعاء ملف الـ JavaScript الخاص بمكتبة Driver.js -->
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const driver = window.driver.js.driver;
+
+            const driverObj = driver({
+                showProgress: true,
+                nextBtnText: 'التالي ←',
+                prevBtnText: '→ السابق',
+                doneBtnText: 'الانتقال للوحة الإدخال ⚙️',
+                steps: [
+                    {
+                        element: '#screen-1',
+                        popover: { title: 'خطوة 1: الدخول للقسم', description: 'يتم الدخول على صفحة القسم بالكلية ثم الضغط على "أعمال الجودة بالقسم"[cite: 1].', side: 'bottom' }
+                    },
+                    {
+                        element: '#screen-2',
+                        popover: { title: 'خطوة 2: التقسيمات الثلاثة', description: 'نجد 3 تقسيمات لأعمال الجودة (منتهية، جاري تنفيذها، ومخطط لها)[cite: 2].', side: 'bottom' }
+                    },
+                    {
+                        element: '#screen-3',
+                        popover: { title: 'خطوة 3: العرض الزمني (Timeline)', description: 'عرض الأنشطة مقسمة زمنياً من الأحدث إلى الأقدم مع زر "عرض التفاصيل"[cite: 3].', side: 'bottom' }
+                    },
+                    {
+                        element: '#screen-4',
+                        popover: { title: 'خطوة 4: عرض التفاصيل بالكامل', description: 'تظهر كافة بيانات النشاط والتواريخ وجهة التنفيذ والنبذة التعريفية بشكل كامل[cite: 4].', side: 'top' }
+                    }
+                ],
+                onDestroyStarted: () => {
+                    if (!driverObj.hasNextStep()) {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        driverObj.destroy();
+                    }
+                }
+            });
+
+            setTimeout(() => {
+                driverObj.drive();
+            }, 500);
+
+            document.getElementById('start-tour-btn').addEventListener('click', () => {
+                driverObj.drive();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم - خطوات إدارة وإدخال وتعديل أنشطة الجودة</title>
+    
+    <!-- استدعاء ملف الـ CSS الخاص بمكتبة Driver.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+    
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #333333;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* قائمة المحتويات الجانبية (Sidebar) */
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar h4 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #333333;
+            font-size: 13px;
+            display: block;
+            padding: 5px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .sidebar a:hover {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .container {
+            flex: 1;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-back, .btn-tour {
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-back {
+            background-color: #7f8c8d;
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-tour {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .step-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .step-section h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        .image-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .screen-img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            background-color: #fff;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .screen-img:hover {
+            transform: scale(1.02);
+        }
+        
+        .driver-popover-footer {
+            flex-direction: row-reverse !important;
+        }
+        
+        .highlight-box-5 {
+            position: absolute;
+            top: 59.5%;
+            right: 2.2%;
+            width: 105px;
+            height: 24px;
+            border: 2px solid #e74c3c; 
+            background-color: rgba(231, 76, 60, 0.25); 
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        .highlight-box-6 {
+            position: absolute;
+            top: 44.5%;
+            left: 7.8%;
+            width: 72px;
+            height: 28px;
+            border: 2px solid #e74c3c; 
+            background-color: rgba(231, 76, 60, 0.25); 
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        .highlight-box-7-add {
+            position: absolute;
+            top: 14.5%;
+            right: 87.2%;
+            width: 86px;
+            height: 38px;
+            border: 2px solid #e74c3c; 
+            background-color: rgba(231, 76, 60, 0.25); 
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        .highlight-box-7-edit {
+            position: absolute;
+            top: 38.5%;
+            left: 4.2%;
+            width: 52px;
+            height: 26px;
+            border: 2px solid #e74c3c; 
+            background-color: rgba(231, 76, 60, 0.25); 
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.8);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        p {
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-layout">
+        <!-- جدول المحتويات الجانبي -->
+        <aside class="sidebar">
+            <h4>فهرس الخطوات</h4>
+            <ul>
+                <li><a href="#step-5">5. أقسام الكلية</a></li>
+                <li><a href="#step-6">6. صفحة الأقسام وجودة القسم</a></li>
+                <li><a href="#step-7">7. جدول الأنشطة والتعديل</a></li>
+                <li><a href="#step-8">8. العنوان والوصف</a></li>
+                <li><a href="#step-9">9. الأهداف والحالة والمواعيد</a></li>
+                <li><a href="#step-10">10. النتائج والتقييم</a></li>
+                <li><a href="#step-11">11. ملف الإثبات والحفظ</a></li>
+                <li><a href="#step-12">12. نتيجة الحفظ بالجدول</a></li>
+            </ul>
+        </aside>
+
+        <div class="container">
+            <header>
+                <h2>لوحة التحكم - إدارة وإدخال وتعديل أنشطة الجودة</h2>
+                <div class="header-buttons">
+                    <button id="start-dash-tour" class="btn-tour">إعادة الجولة 🚀</button>
+                    <a href="index.html" class="btn-back">← العودة للدليل</a>
+                </div>
+            </header>
+
+            <!-- الخطوة الخامسة -->
+            <div class="step-section" id="step-5">
+                <h3>الخطوة 5: لوحة التحكم الرئيسية وأقسام الكلية</h3>
+                <p>بعد تسجيل الدخول بنجاح، تظهر واجهة لوحة التحكم الرئيسية ومن خلال القائمة الجانبية يتم الانتقال إلى خيار <strong>"أقسام الكلية"</strong>[cite: 6].</p>
+                <div class="image-container">
+                    <img src="5.png" alt="الخطوة الخامسة" class="screen-img">
+                    <div class="highlight-box-5"></div>
+                </div>
+            </div>
+
+            <!-- الخطوة السادسة -->
+            <div class="step-section" id="step-6">
+                <h3>الخطوة 6: صفحة أقسام الكلية</h3>
+                <p>تظهر قائمة الأقسام التابعة، وللدخول إلى تفاصيل الجودة الخاصة بقسم نظم المعلومات يتم الضغط على زر <strong>"جودة القسم"</strong> المقابل له[cite: 7].</p>
+                <div class="image-container">
+                    <img src="6.png" alt="الخطوة السادسة" class="screen-img">
+                    <div class="highlight-box-6"></div>
+                </div>
+            </div>
+
+            <!-- الخطوة السابعة -->
+            <div class="step-section" id="step-7">
+                <h3>الخطوة 7: جدول أنشطة الجودة والإضافة والتعديل</h3>
+                <p>من جدول الأنشطة الخاصة بالقسم، يمكنك الضغط على زر <strong>"إضافة نشاط جديد"</strong> أو الضغط على زر <strong>"تعديل"</strong> بجانب أي نشاط لتعديل بياناته[cite: 8, 9].</p>
+                <div class="image-container">
+                    <img src="7.png" alt="الخطوة السابعة" class="screen-img">
+                    <div class="highlight-box-7-add"></div>
+                    <div class="highlight-box-7-edit"></div>
+                </div>
+            </div>
+
+            <!-- الخطوة الثامنة -->
+            <div class="step-section" id="step-8">
+                <h3>الخطوة 8: إضافة نشاط جودة جديد (العنوان والوصف)</h3>
+                <p>يتم إدخال <strong>عنوان النشاط (عربي)</strong> وكتابة تفاصيل <strong>الوصف</strong> الخاصة بالنشاط[cite: 10].</p>
+                <img src="8.png" alt="الشاشة الثامنة" class="screen-img">
+            </div>
+
+            <!-- الخطوة التاسعة -->
+            <div class="step-section" id="step-9">
+                <h3>الخطوة 9: إدخال الأهداف، الحالة، والمواعيد</h3>
+                <p>يتم كتابة <strong>الأهداف</strong> الخاصة بالنشاط، وتحديد الفئة المستهدفة، الجهة أو الشخص المسؤول، العام الأكاديمي، وتاريخ البدء والانتهاء، بالإضافة إلى تحديد <strong>الحالة</strong> (إما <em>مخطط</em> أو <em>جاري التنفيذ</em> أو <em>منتهي</em>) حسب طبيعة النشاط[cite: 11].</p>
+                <img src="9.png" alt="الشاشة التاسعة" class="screen-img">
+            </div>
+
+            <!-- الخطوة العاشرة -->
+            <div class="step-section" id="step-10">
+                <h3>الخطوة 10: النتائج وتقييم الفعالية</h3>
+                <p>تتم تعبئة النتائج المتوقعة والنتائج الفعلية (تملأ بعد التنفيذ)، وتحديد تقييم الفعالية[cite: 11].</p>
+                <img src="10.png" alt="الشاشة العاشرة" class="screen-img">
+            </div>
+
+            <!-- الخطوة الحادية عشرة -->
+            <div class="step-section" id="step-11">
+                <h3>الخطوة 11: رفع ملف الإثبات وحفظ النشاط</h3>
+                <p>في هذه الخطوة، يتم <strong>رفع ملف الإثبات (اختياري)</strong> من خلال زر التصفح (Browse)، ثم الضغط على زر <strong>حفظ</strong> لإتمام العملية بنجاح[cite: 11].</p>
+                <img src="11.png" alt="الشاشة الحادية عشرة" class="screen-img">
+            </div>
+
+            <!-- الخطوة الثانية عشرة -->
+            <div class="step-section" id="step-12">
+                <h3>الخطوة 12: نتيجة الحفظ وعرض النشاط في الجدول</h3>
+                <p>بعد الانتهاء من الحفظ بنجاح، يتم العودة تلقائياً إلى جدول الأنشطة لتجد أن النشاط الجديد قد تم إضافته وظهر بنجاح ضمن قائمة الأنشطة[cite: 8].</p>
+                <img src="7.png" alt="نتيجة الحفظ" class="screen-img">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- استدعاء مكتبة Driver.js -->
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const driver = window.driver.js.driver;
+
+            const dashTour = driver({
+                showProgress: true,
+                nextBtnText: 'التالي ←',
+                prevBtnText: '→ السابق',
+                doneBtnText: 'إنهاء',
+                steps: [
+                    {
+                        element: '#step-5',
+                        popover: { title: 'خطوة 5: البداية من لوحة التحكم', description: 'أول ما تفتح لوحة التحكم، ننظر إلى القائمة الجانبية ونختار "أقسام الكلية"[cite: 6].', side: 'bottom' }
+                    },
+                    {
+                        element: '#step-6',
+                        popover: { title: 'خطوة 6: اختيار القسم وجودة القسم', description: 'نختار قسم نظم المعلومات ثم نضغط على زر "جودة القسم" المقابل له للانتقال لجدول الأنشطة[cite: 7].', side: 'bottom' }
+                    },
+                    {
+                        element: '#step-7',
+                        popover: { title: 'خطوة 7: إضافة نشاط جديد أو تعديله', description: 'لإضافة نشاط جديد اضغط على الزر الأعلى، ولتعديل النشاط بعد إدخاله اضغط على زر "تعديل" بجانب النشاط[cite: 8, 9].', side: 'bottom' }
+                    },
+                    {
+                        element: '#step-8',
+                        popover: { title: 'خطوة 8: العنوان والوصف', description: 'إدخال عنوان النشاط باللغة العربية وتدوين الوصف التفصيلي[cite: 10].', side: 'top' }
+                    },
+                    {
+                        element: '#step-9',
+                        popover: { title: 'خطوة 9: الأهداف والحالة والمواعيد', description: 'كتابة الأهداف، تحديد الفئة المستهدفة والجهة المسؤولة، واختيار حالة النشاط (مخطط، جاري التنفيذ، منتهي) مع تواريخ البدء والانتهاء[cite: 11].', side: 'top' }
+                    },
+                    {
+                        element: '#step-10',
+                        popover: { title: 'خطوة 10: النتائج والتقييم', description: 'تعبئة النتائج المتوقعة والفعلية وتقييم الفعالية[cite: 11].', side: 'top' }
+                    },
+                    {
+                        element: '#step-11',
+                        popover: { title: 'خطوة 11: رفع ملف الإثبات والحفظ', description: 'يتم رفع ملف الإثبات (اختياري) ثم الضغط على زر حفظ لتسجيل النشاط نهائياً[cite: 11].', side: 'top' }
+                    },
+                    {
+                        element: '#step-12',
+                        popover: { title: 'خطوة 12: نتيجة الحفظ', description: 'تظهر هذه الشاشة لتوضيح نتيجة الحفظ وكيف يظهر النشاط الجديد داخل جدول الأنشطة[cite: 8].', side: 'top' }
+                    }
+                ]
+            });
+
+            setTimeout(() => {
+                dashTour.drive();
+            }, 500);
+
+            document.getElementById('start-dash-tour').addEventListener('click', () => {
+                dashTour.drive();
+            });
+        });
+    </script>
+</body>
+</html>
