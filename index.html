@@ -192,10 +192,10 @@
         /* مستطيل الهايلايت الخاص بالشاشة الثالثة (عرض التفاصيل) */
         .highlight-box-3 {
             position: absolute;
-           top: 59.5%;
-    left: 19.2%;
-    width: 97px;
-    height: 29px;
+            top: 59.5%;
+            left: 19.2%;
+            width: 97px;
+            height: 29px;
             border: 2px solid #e74c3c;
             background-color: rgba(231, 76, 60, 0.25);
             border-radius: 4px;
@@ -215,6 +215,44 @@
 
         p {
             line-height: 1.6;
+        }
+
+        /* --- تعديلات التجاوب للشاشات الصغيرة (الموبايل والتابلت) --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-layout {
+                flex-direction: column; /* جعل القائمة والكونتينر تحت بعضهما */
+                gap: 15px;
+            }
+
+            .sidebar {
+                width: 100%; /* تأخذ العرض بالكامل على الموبايل */
+                position: static; /* إلغاء الـ sticky لترتاح الصفحة في الاسكرول */
+                box-sizing: border-box;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-tour, .btn-dashboard {
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
         }
     </style>
 </head>
@@ -264,7 +302,7 @@
             <!-- الشاشة الثالثة -->
             <div class="screen-section" id="screen-3">
                 <h3>الشاشة الثالثة: التقسيم الزمني (التايم لاين)</h3>
-                <p>هنا يتم عرض الأنشطة مقسمة زمنياً من الأحدث إلى الأقدم حسب تاريخ انتهاء الفترة الزمنية للنشاط (مثل جاري التنفيذ في فترة محددة)، مع توفر زر <strong>"عرض التفاصيل"</strong> لكل نشاط[cite: 3].</p>
+                <p>هنا يتم عرض الأنشطة مقسمة زمنياً من الأحدث إلى الأقدم حسب تاريخ انتهاء الفترة الزمنية للنشاط (مثل جاري التنفيذ في فترة محددة)، مع توفر زر <strong>"عرض التفاصيل"</strong> لكل نشاط.</p>
                 <div class="image-container">
                     <img src="3.png" alt="الشاشة الثالثة" class="screen-img">
                     <div class="highlight-box-3"></div>
@@ -274,7 +312,7 @@
             <!-- الشاشة الرابعة -->
             <div class="screen-section" id="screen-4">
                 <h3>الشاشة الرابعة: عرض البيانات الكاملة للنشاط</h3>
-                <p>عند الضغط على عرض التفاصيل، تنتقل للشاشة الرابعة لعرض البيانات بالكامل التي تم إدخالها (الفترة الزمنية، العام الأكاديمي، جهة التنفيذ، الفئة المستهدفة، ونبذة عن النشاط وأهدافه)[cite: 4].</p>
+                <p>عند الضغط على عرض التفاصيل، تنتقل للشاشة الرابعة لعرض البيانات بالكامل التي تم إدخالها (الفترة الزمنية، العام الأكاديمي، جهة التنفيذ، الفئة المستهدفة، ونبذة عن النشاط وأهدافه).</p>
                 <div class="image-container">
                     <img src="4.png" alt="الشاشة الرابعة" class="screen-img">
                 </div>
@@ -305,11 +343,11 @@
                     },
                     {
                         element: '#screen-3',
-                        popover: { title: 'خطوة 3: العرض الزمني (Timeline)', description: 'عرض الأنشطة مقسمة زمنياً من الأحدث إلى الأقدم مع زر "عرض التفاصيل"[cite: 3].', side: 'bottom' }
+                        popover: { title: 'خطوة 3: العرض الزمني (Timeline)', description: 'عرض الأنشطة مقسمة زمنياً من الأحدث إلى الأقدم مع زر "عرض التفاصيل".', side: 'bottom' }
                     },
                     {
                         element: '#screen-4',
-                        popover: { title: 'خطوة 4: عرض التفاصيل بالكامل', description: 'تظهر كافة بيانات النشاط والتواريخ وجهة التنفيذ والنبذة التعريفية بشكل كامل[cite: 4].', side: 'top' }
+                        popover: { title: 'خطوة 4: عرض التفاصيل بالكامل', description: 'تظهر كافة بيانات النشاط والتواريخ وجهة التنفيذ والنبذة التعريفية بشكل كامل.', side: 'top' }
                     }
                 ],
                 onDestroyStarted: () => {
